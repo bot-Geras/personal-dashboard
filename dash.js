@@ -1,21 +1,3 @@
-/**
- * Challenge: get a random image from Unsplash and set it as the background
- *
- * Part 1:
- *
- * URL: https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature
- * (You can change the "query" at the end to whatever theme you want)
- *
- * Change the body's backgroundImage to:
- * `url(<insert the URL of the iamge from the API here>)`
- *
- * (You may need to dig around the response body a bit to find this URL)
- *
- * (Note I've already added some CSS to resize the image within the window.
- * Instructions for this were found on CSS Tricks:
- * https://css-tricks.com/perfect-full-page-background-image/#awesome-easy-progressive-css3-way)
- */
-
 fetch(
   "https://apis.scrimba.com/unsplash/photos/random?orientation=landscape&query=nature"
 )
@@ -50,9 +32,36 @@ fetch("https://api.coingecko.com/api/v3/coins/dogecoin")
         `;
   });
 
-  function addTime() {
-    const time = new Date()
-    document.getElementById("time").textContent = time.toLocaleTimeString("en-us", {timeStyle: "short"})
-  }
+function addTime() {
+  const time = new Date();
+  document.getElementById("time").textContent = time.toLocaleTimeString(
+    "en-us",
+    { timeStyle: "short" }
+  );
+}
 
-  setInterval(addTime, 1000)
+setInterval(addTime, 1000);
+
+navigator.geolocation.getCurrentPosition((position) => {
+  // console.log(position.coords.latitude)
+  fetch(
+    `https://apis.scrimba.com/openweathermap/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric`
+  )
+    .then((res) => {
+      if (!res.ok) {
+        throw Error("weather data not found");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      // console.log(data);
+      const iconUrl = ` http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+      // console.log(iconUrl);
+      document.getElementById("weather").innerHTML = `
+                <img src="${iconUrl}">
+                <p class="weather-temp">${Math.round(data.main.temp)}</p>
+                <p class="weather-city">${data.name}</p>
+            `;
+    })
+    .catch((err) => console.error(err));
+});
