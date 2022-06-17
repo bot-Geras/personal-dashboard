@@ -2,20 +2,21 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
 body {
-    
-    background: no-repeat center center fixed; 
+
+    background: no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     color: white;
-    text-shadow: 0px 0px 20px #aaaaaa; 
+    text-shadow: 0px 0px 20px #aaaaaa;
 }
 
 main {
@@ -32,7 +33,25 @@ main {
 }
 
 h1.time {
-    border: 3px solid green;
+
     text-align: center;
     /* align-self: center; */
+}
+
+div.crypto {
+    font-size: 1.3rem;
+}
+
+div.crypto>p {
+    margin: 0;
+}
+
+div.crypto-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+div.crypto-top>span {
+    margin-left: 10px;
 }
